@@ -12,7 +12,7 @@ loop do
   puts 'Введите количество купленного товара'
   count = gets.chomp.to_f
 
-  basket[product_name] = { price: price, count: count, worth: price * count }
+  basket[product_name] = { price: price, count: count }
 end
 
 if basket.empty?
@@ -21,5 +21,14 @@ else
   p basket
 end
 
-total = basket.inject(0) { |memo, (_, numbers)| memo + numbers[:worth] }
-p total
+total = 0
+basket.each do |product_name, purchase|
+  worth = purchase[:count] * purchase[:price]
+
+  print "Товар: #{product_name}, Количество: #{purchase[:count]}"
+  puts " Цена: #{purchase[:price]}, Сумма: #{worth}"
+
+  total += worth
+end
+
+p "Итого: #{total}"
