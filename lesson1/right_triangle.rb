@@ -1,30 +1,20 @@
 puts 'Задача - Прямоугольный треугольник'
 puts 'Введите длину стороны треугольника A:'
-a = gets.chomp.to_i
+a = gets.chomp.to_f
 
 puts 'Введите длину стороны треугольника B:'
-b = gets.chomp.to_i
+b = gets.chomp.to_f
 
 puts 'Введите длину стороны треугольника C:'
-c = gets.chomp.to_i
+c = gets.chomp.to_f
 
-right = false
-isosceles = false
-equilateral = false
+sides = [a, b, c]
+max = sides.max
+min1, min2 = sides.min(2)
 
-if a > b && a > c
-  right = (b**2 + c**2 == a**2)
-  isosceles = (b == c)
-elsif b > a && b > c
-  right = (a**2 + c**2 == b**2)
-  isosceles = (a == c)
-elsif c > b && c > a
-  right = (a**2 + b**2 == c**2)
-  isosceles = (b == a)
-else
-  isosceles = true
-  equilateral = true
-end
+right = (min1**2 + min2**2 == max**2)
+isosceles = (max == min1 || max == min2 || min1 == min2)
+equilateral = (max == min1 && max == min2 && min1 == min2)
 
 puts "Прямоугольный: #{right}, равнобедренный: #{isosceles},
       равносторонний: #{equilateral}"
