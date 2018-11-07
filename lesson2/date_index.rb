@@ -14,4 +14,4 @@ day_index = (1..month).inject(0) do |memo, index|
   memo + (index == month ? day : days[index + 1])
 end
 
-p day_index
+puts day_index

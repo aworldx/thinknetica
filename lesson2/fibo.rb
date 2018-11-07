@@ -1,10 +1,6 @@
 fibo = [0, 1]
 
-loop do
-  current = fibo[-1] + fibo[-2]
-
-  break if current > 100
-
+while (current = fibo[-1] + fibo[-2]) <= 100
   fibo << current
 end
 

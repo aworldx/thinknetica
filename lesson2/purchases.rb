@@ -16,9 +16,9 @@ loop do
 end
 
 if basket.empty?
-  p 'В корзине нет товаров!'
+  puts 'В корзине нет товаров!'
 else
-  p basket
+  puts basket
 end
 
 total = 0
@@ -31,4 +31,4 @@ basket.each do |product_name, purchase|
   total += worth
 end
 
-p "Итого: #{total}"
+puts "Итого: #{total}"

@@ -4,4 +4,4 @@ result = ('a'..'z').each.with_index(1)
   memo[symb] = index if vowels.include?(symb)
 end
 
-p result
+puts result
