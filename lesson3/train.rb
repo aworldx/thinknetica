@@ -67,8 +67,4 @@ class Train
   def previous_station
     route.next_station(current_station, :backward)
   end
-
-  # def ==(other)
-  #   number == other.number
-  # end
 end
