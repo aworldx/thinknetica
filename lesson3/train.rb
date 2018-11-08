@@ -41,7 +41,7 @@ class Train
   end
 
   def go_to_next_station
-    next_st = route.next_station(current_station)
+    next_st = route.next_station(current_station, :forward)
 
     raise "there's nowhere to go" unless next_st
 
@@ -51,7 +51,7 @@ class Train
   end
 
   def go_to_previous_station
-    prev_st = route.previous_station(current_station)
+    prev_st = route.next_station(current_station, :backward)
 
     raise "there's nowhere to go" unless prev_st
 
@@ -61,14 +61,14 @@ class Train
   end
 
   def next_station
-    route.next_station(current_station)
+    route.next_station(current_station, :forward)
   end
 
   def previous_station
-    route.previous_station(current_station)
+    route.next_station(current_station, :backward)
   end
 
-  def ==(other)
-    number == other.number
-  end
+  # def ==(other)
+  #   number == other.number
+  # end
 end

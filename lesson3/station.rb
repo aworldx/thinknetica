@@ -17,10 +17,7 @@ class Station
 
   def list_trains(type = nil)
     return trains unless type
-    trains.select { |train| train.type == type }
-  end
 
-  def ==(other)
-    name == other.name
+    trains.select { |train| train.type == type }
   end
 end
