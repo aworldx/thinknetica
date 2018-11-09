@@ -26,7 +26,7 @@ class Route
   end
 
   def next_station(station, direction = :forward)
-    return nil if station == last_station(direction)
+    return if station == last_station(direction)
 
     if transitional_stations.empty? || station == last_trans_station(direction)
       return last_station(direction)
@@ -45,13 +45,13 @@ class Route
   end
 
   def first_trans_station(direction = :forward)
-    return nil if transitional_stations.empty?
+    return if transitional_stations.empty?
 
     direction == :forward ? transitional_stations.first : transitional_stations.last
   end
 
   def last_trans_station(direction = :forward)
-    return nil if transitional_stations.empty?
+    return if transitional_stations.empty?
 
     direction == :forward ? transitional_stations.last : transitional_stations.first
   end
