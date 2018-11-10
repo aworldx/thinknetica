@@ -68,7 +68,7 @@ module Transport
       puts carriages
     end
 
-    protected
+    private
 
     # only child classes call this method
     def add_carriage(carriage)
@@ -84,8 +84,6 @@ module Transport
 
       @carriages.delete(carriage)
     end
-
-    private
 
     # can't directly change this data, use methods
     attr_writer :speed, :carriage_count, :route, :current_station

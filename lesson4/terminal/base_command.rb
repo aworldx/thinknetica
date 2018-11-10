@@ -12,7 +12,7 @@ class BaseCommand
     puts 'This is base command! It does not make smth useful'
   end
 
-  protected
+  private
 
   def select_object(source)
     if source.empty?
