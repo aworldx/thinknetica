@@ -44,10 +44,6 @@ module Transport
       "Route from #{first_station} to #{last_station}"
     end
 
-    def print_transitional_stations
-      puts transitional_stations
-    end
-
     private
 
     # helper method, uses only in this class

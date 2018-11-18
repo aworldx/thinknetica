@@ -3,12 +3,9 @@ module Terminal
   class TextCommandor
     attr_reader :commands, :stations, :routes, :trains, :carriages
 
-    def initialize
+    def initialize(storage)
       @commands = []
-      @stations = []
-      @routes = []
-      @trains = []
-      @carriages = []
+      @storage = storage
     end
 
     def add_menu_item(name, type, options = {})
@@ -19,7 +16,7 @@ module Terminal
       command = menu_item_by_index(menu_item_index)
       result = command.run
 
-      add_new_instance(result) if command.type == :create
+      @storage.add_new_item(result) if command.type == :create && result
     end
 
     def print_menu
@@ -46,10 +43,10 @@ module Terminal
                     types: [Transport::Route],
                     attrs: [{ title: 'first_station',
                               select_type: :select,
-                              select_arr: stations },
+                              select_arr: @storage.stations },
                             { title: 'last_station',
                               select_type: :select,
-                              select_arr: stations }])
+                              select_arr: @storage.stations }])
 
       add_menu_item('Carriage create',
                     :create,
@@ -58,67 +55,67 @@ module Terminal
 
       add_menu_item('Add station to route',
                     :call,
-                    objects: routes,
+                    objects: @storage.routes,
                     method: :add_transitional_station,
-                    arg: stations)
+                    arg: @storage.stations)
 
       add_menu_item('Remove station from route',
                     :call,
-                    objects: routes,
+                    objects: @storage.routes,
                     method: :remove_transitional_station,
-                    arg: stations)
+                    arg: @storage.stations)
 
       add_menu_item('Set route for the train',
                     :call,
-                    objects: trains,
+                    objects: @storage.trains,
                     method: :add_route,
-                    arg: routes)
+                    arg: @storage.routes)
 
       add_menu_item('Add carriage for the train',
                     :call,
-                    objects: trains,
+                    objects: @storage.trains,
                     method: :add_carriage,
-                    arg: carriages)
+                    arg: @storage.carriages)
 
       add_menu_item('Check carriage list',
                     :call,
-                    objects: trains,
-                    method: :print_carriage_list)
+                    objects: @storage.trains,
+                    method: :carriages)
 
       add_menu_item('Remove carriage from the train',
                     :call,
-                    objects: trains,
+                    objects: @storage.trains,
                     method: :remove_carriage,
-                    arg: carriages)
+                    arg: @storage.carriages)
 
       add_menu_item('Move the train forward',
                     :call,
-                    objects: trains,
+                    objects: @storage.trains,
                     method: :go_to_next_station)
 
       add_menu_item('Move the train backward',
                     :call,
-                    objects: trains,
+                    objects: @storage.trains,
                     method: :go_to_previous_station)
 
       add_menu_item('Check train current station',
                     :call,
-                    objects: trains,
-                    method: :print_current_station)
+                    objects: @storage.trains,
+                    method: :current_station)
 
       add_menu_item('Check station list',
                     :list,
-                    objects: stations)
+                    objects: @storage.stations)
 
       add_menu_item('Check trains on the station',
                     :call,
-                    objects: stations,
-                    method: :trains_on_station)
+                    objects: @storage.stations,
+                    method: :trains)
 
       add_menu_item('Check trans stations of the route',
                     :call,
-                    objects: routes,
-                    method: :print_transitional_stations)
+                    objects: @storage.routes,
+                    method: :transitional_stations)
     end
 
     private
@@ -133,21 +130,6 @@ module Terminal
 
     def menu_item_by_index(menu_item_index)
       @commands[menu_item_index - 1]
-    end
-
-    def transport_classes
-      {
-        'Transport::CargoTrain' => @trains,
-        'Transport::PassengerTrain' => @trains,
-        'Transport::Route' => @routes,
-        'Transport::Station' => @stations,
-        'Transport::CargoCarriage' => @carriages,
-        'Transport::PassengerCarriage' => @carriages
-      }
-    end
-
-    def add_new_instance(instance)
-      transport_classes[instance.class.name] << instance
     end
   end
 end

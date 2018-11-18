@@ -26,9 +26,5 @@ module Transport
     def to_s
       "Station #{name.capitalize}"
     end
-
-    def trains_on_station
-      puts trains
-    end
   end
 end

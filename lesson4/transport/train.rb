@@ -60,14 +60,6 @@ module Transport
       "Train №#{number}"
     end
 
-    def print_current_station
-      puts current_station
-    end
-
-    def print_carriage_list
-      puts carriages
-    end
-
     private
 
     # only child classes call this method
