@@ -49,11 +49,12 @@ module Transport
       "Route from #{first_station} to #{last_station}"
     end
 
-    def valid?
-      first_station && last_station
-    end
-
     private
+
+    def validate!
+      raise "route's stations must be filled" unless first_station && last_station
+      raise 'stations in the route can not be equal' if first_station == last_station
+    end
 
     # helper method, uses only in this class
     def station_index(station)

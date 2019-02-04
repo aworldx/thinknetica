@@ -1,10 +1,17 @@
 module Validatable
   def initialize(params = {})
     super(params)
-    raise 'object is not valid!' unless valid?
+    validate!
   end
 
   def valid?
+    validate!
+    true
+  rescue RuntimeError
+    false
+  end
+
+  def validate!
     super
   end
 end

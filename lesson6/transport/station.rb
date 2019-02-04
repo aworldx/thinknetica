@@ -36,8 +36,10 @@ module Transport
       "Station #{name.capitalize}"
     end
 
-    def valid?
-      !name.strip.empty?
+    private
+
+    def validate!
+      raise 'station name must be filled' if name.strip.empty?
     end
   end
 end

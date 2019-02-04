@@ -5,6 +5,9 @@ require './validatable'
 # describes freight or passenger trains
 module Transport
   class Train
+
+    TRAIN_NUMBER_CHECK = /^([a-z]|\d){3}-?([a-z]|\d){2}$/i
+
     include Manufacturer
     include InstanceCounter
     prepend Validatable
@@ -74,11 +77,11 @@ module Transport
       "Train №#{number}"
     end
 
-    def valid?
-      number =~ /^([a-z]|\d){3}-?([a-z]|\d){2}$/
-    end
-
     private
+
+    def validate!
+      raise 'number does not match the pattern' unless number =~ TRAIN_NUMBER_CHECK
+    end
 
     # only child classes call this method
     def add_carriage(carriage)

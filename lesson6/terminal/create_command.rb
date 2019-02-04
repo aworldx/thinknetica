@@ -18,7 +18,7 @@ module Terminal
         begin
           new_instance = create_class.new(params)
           break
-        rescue => e
+        rescue RuntimeError => e
           puts "#{e.message}, try again!"
         end
       end
