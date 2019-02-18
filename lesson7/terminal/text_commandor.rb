@@ -50,13 +50,13 @@ module Terminal
                     :create,
                     types: [Transport::PassengerCarriage],
                     attrs: [{ title: 'number', select_type: :text },
-                            { title: 'seats_count', select_type: :text }])
+                            { title: 'places_count', select_type: :text }])
 
       add_menu_item('Cargo carriage create',
                     :create,
                     types: [Transport::CargoCarriage],
                     attrs: [{ title: 'number', select_type: :text },
-                            { title: 'capacity', select_type: :text }])
+                            { title: 'places_count', select_type: :text }])
 
       add_menu_item('Add station to route',
                     :call,
@@ -128,14 +128,14 @@ module Terminal
                     proc: proc do |carriage|
                       return unless carriage
 
-                      if carriage.is_a?(Transport::CargoCarriage)
-                        puts 'Please enter capacity'
-                        capacity = gets.chomp
+                      params = {}
 
-                        carriage.take_capacity(capacity)
-                      else
-                        carriage.take_seat
+                      carriage.class.instance_method(:take_place).parameters.each do |_, name|
+                        puts "Please enter #{name} to take"
+                        params[name] = gets.chomp
                       end
+
+                      carriage.take_place(*params.values)
                     end)
 
     end
