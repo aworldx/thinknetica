@@ -131,13 +131,12 @@ module Terminal
                       return unless carriage
 
                       params = {}
+                      method = carriage.class.instance_method(:take_place)
 
-                      # rubocop:disable Performance/HashEachMethods
-                      carriage.class.instance_method(:take_place).parameters.each do |_, name|
+                      method.parameters.to_h.each_value do |name|
                         puts "Please enter #{name} to take"
                         params[name] = gets.chomp
                       end
-                      # rubocop:enable Performance/HashEachMethods
 
                       carriage.take_place(*params.values)
                     end)
