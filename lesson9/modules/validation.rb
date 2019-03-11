@@ -11,14 +11,14 @@ module Validation
 
   module ClassMethods
     def validate(attr, validation_type, param = nil)
-      @@validations ||= []
-      @@validations << BaseValidator.initialize_validator(validation_type,
-                                                          attr.to_sym,
-                                                          param)
+      @validations ||= []
+      @validations << BaseValidator.initialize_validator(validation_type,
+                                                         attr.to_sym,
+                                                         param)
     end
 
     def validations
-      @@validations
+      @validations
     end
   end
 

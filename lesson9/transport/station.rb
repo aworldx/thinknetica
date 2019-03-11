@@ -2,9 +2,12 @@
 module Transport
   class Station
     include InstanceCounter
+    include Validation
 
     attr_reader :trains
     attr_accessor :name
+
+    validate :name, :presence
 
     def initialize(params = {})
       @name = params[:name]
@@ -39,12 +42,6 @@ module Transport
       return unless block_given?
 
       trains.each { |train| yield(train) }
-    end
-
-    private
-
-    def validate!
-      raise 'station name must be filled' if name.strip.empty?
     end
   end
 end

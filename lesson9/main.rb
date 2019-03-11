@@ -74,3 +74,9 @@ begin
 rescue RuntimeError => e
   p e.message # "wrong type for attribute number"
 end
+
+st = Transport::Station.new(name: nil)
+raise 'validator error' if st.valid?
+
+p tr.class.validations
+p st.class.validations

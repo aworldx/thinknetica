@@ -10,7 +10,6 @@ module Transport
 
     include Manufacturer
     include InstanceCounter
-    # prepend Validatable
     include Acсessors
     include Validation
 
@@ -23,7 +22,7 @@ module Transport
     validate :number, :type, String
 
     def initialize(params = {})
-      send('number=', params[:number])
+      @number = params[:number]
       @carriages = []
       @speed = 0
 

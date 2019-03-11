@@ -10,9 +10,7 @@ class BaseValidator
     raise 'unknown validation type'
   end
 
-  def message
-    raise 'unknown validation type'
-  end
+  alias message valid?
 
   def attr_value(object)
     object.instance_variable_get("@#{attribute}")

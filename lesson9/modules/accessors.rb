@@ -13,7 +13,7 @@ module Acсessors
         define_method("#{attr}=".to_sym) do |val|
           @history ||= {}
           @history[attr.to_sym] ||= []
-          @history[attr.to_sym] << val
+          @history[attr.to_sym] << instance_variable_get(attr_name)
 
           instance_variable_set(attr_name, val)
         end
